@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../main/resources/xsd/armenu.xsd">
+    <items>
+        <menu-group>
+            <name>Later group</name>
+            <icon>C:/Program Files/a/a.png</icon>
+            <items>
+                <menu-item>
+                    <name>Item 1</name>
+                    <command>"C:/Program Files/a/foo-1.exe"</command>
+                    <icon>C:/Program Files/a/foo-1.png</icon>
+                </menu-item>
+                <menu-item>
+                    <name>Item 2</name>
+                    <command>"C:/Program Files/a/foo-2.exe" "arg with spaces"</command>
+                    <icon>C:/Program Files/a/foo-2.gif</icon>
+                </menu-item>
+            </items>
+        </menu-group>
+        <menu-group>
+            <name>Earlier group</name>
+            <icon>C:/Program Files/b/b.png</icon>
+            <items>
+                <menu-item>
+                    <name>Item 2</name>
+                    <command>"C:/Program Files/b/bar-1.exe"</command>
+                    <icon>C:/Program Files/b/bar-1.png</icon>
+                </menu-item>
+                <menu-item>
+                    <name>Item 1</name>
+                    <command>"C:/Program Files/b/bar-2.exe"</command>
+                    <icon>C:/Program Files/b/bar-2.gif</icon>
+                </menu-item>
+                <menu-group>
+                    <name>Subgroup</name>
+                    <icon>C:/Program Files/a/b/c.png</icon>
+                    <items>
+                        <menu-item>
+                            <name>Item A</name>
+                            <command>"C:/Program Files/b/c/baz-1.exe" abc</command>
+                            <icon>C:/Program Files/b/c/baz-1.png</icon>
+                        </menu-item>
+                        <menu-item>
+                            <name>Item B</name>
+                            <command>"C:/Program Files/b/c/baz-2.exe" def ghi "\"str"</command>
+                            <icon>C:/Program Files/b/c/baz-2.gif</icon>
+                        </menu-item>
+                    </items>
+                </menu-group>
+                <menu-item>
+                    <name>Item 3</name>
+                    <command>"C:/Program Files/b/bar-3.exe"</command>
+                    <icon>C:/Program Files/b/bar-3.gif</icon>
+                </menu-item>
+            </items>
+        </menu-group>
+    </items>
+</menu>

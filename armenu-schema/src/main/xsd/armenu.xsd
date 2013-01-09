@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!--
+
+-->
+
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+    <xs:element name="menu-config">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice maxOccurs="1" minOccurs="1">
+                    <xs:element name="menu" type="MenuGroupType"/>
+                    <xs:element name="menu-bar" type="MenuBarType"/>
+                </xs:choice>
+                <xs:element name="commands" type="MenuCommandsType" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:complexType name="MenuGroupType">
+        <xs:complexContent>
+            <xs:extension base="AbstractMenuGroupType">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="MenuBarType">
+        <xs:complexContent>
+            <xs:extension base="AbstractMenuGroupType">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="AbstractMenuGroupType" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="AbstractMenuItemType">
+                <xs:sequence>
+                    <xs:element name="items" type="MenuGroupItemsType" minOccurs="1"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="MenuItemType">
+        <xs:complexContent>
+            <xs:extension base="AbstractMenuItemType">
+                <xs:sequence>
+                    <xs:element name="command" type="CommandType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="MenuGroupItemsType">
+        <xs:choice maxOccurs="unbounded" minOccurs="1">
+            <xs:element name="menu-group" type="MenuGroupType"/>
+            <xs:element name="menu-item" type="MenuItemType"/>
+        </xs:choice>
+    </xs:complexType>
+    
+    <xs:complexType name="AbstractMenuItemType" abstract="true">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="description" type="xs:string" minOccurs="0"/>
+            <xs:element name="icon" type="PathType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="MenuCommandsType">
+        <xs:choice maxOccurs="unbounded" minOccurs="0">
+            <xs:element name="command" type="MenuCommandType"/>
+        </xs:choice>
+    </xs:complexType>
+    
+    <xs:complexType name="MenuCommandType">
+        <xs:attribute name="id" type="IdType" use="required"/>
+        <xs:attribute name="class" type="xs:string" use="required"/>
+    </xs:complexType>
+    
+    <xs:simpleType name="IdType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-z0-9$_-]+"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:complexType name="CommandType">
+        <xs:sequence>
+            <xs:element name="argument" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="ref" type="IdType" use="required"/>
+    </xs:complexType>
+    
+    <xs:simpleType name="PathType">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+</xs:schema>

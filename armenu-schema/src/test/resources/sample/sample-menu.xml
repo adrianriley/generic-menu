@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../main/resources/xsd/armenu.xsd">
+    <menu-bar>
+        <items>
+            <menu-group>
+                <name>Start</name>
+                <items>
+                    <menu-group>
+                        <name>First menu group</name>
+                        <icon>C:/Program Files/a/a.png</icon>
+                        <items>
+                            <menu-item>
+                                <name>First menu item</name>
+                                <icon>C:/Program Files/a/foo-1.png</icon>
+                                <command ref="Execute">
+                                    <argument>C:/Program Files/a/foo-1.exe</argument>
+                                </command>
+                            </menu-item>
+                            <menu-item>
+                                <name>Second menu item</name>
+                                <icon>C:/Program Files/a/foo-2.gif</icon>
+                                <command ref="Execute">
+                                    <argument>C:/Program Files/a/foo-2.exe</argument>
+                                    <argument>arg with spaces</argument>
+                                </command>
+                            </menu-item>
+                        </items>
+                    </menu-group>
+                    <menu-group>
+                        <name>Second menu group</name>
+                        <icon>C:/Program Files/b/b.png</icon>
+                        <items>
+                            <menu-item>
+                                <name>First menu item</name>
+                                <icon>C:/Program Files/b/bar-1.png</icon>
+                                <command ref="Execute">
+                                    <argument>C:/Program Files/a/bar-1.exe</argument>
+                                </command>
+                            </menu-item>
+                            <menu-item>
+                                <name>Second menu item</name>
+                                <icon>C:/Program Files/b/bar-2.gif</icon>
+                                <command ref="Execute">
+                                    <argument>C:/Program Files/a/bar-2.exe</argument>
+                                </command>
+                            </menu-item>
+                            <menu-group>
+                                <name>Second menu group, first subgroup</name>
+                                <icon>C:/Program Files/a/b/c.png</icon>
+                                <items>
+                                    <menu-item>
+                                        <name>First subgroup menu item</name>
+                                        <icon>C:/Program Files/b/c/baz-1.png</icon>
+                                        <command ref="Execute">
+                                            <argument>C:/Program Files/a/baz-1.exe</argument>
+                                        </command>
+                                    </menu-item>
+                                    <menu-item>
+                                        <name>Second subgroupmenu item</name>
+                                        <icon>C:/Program Files/b/c/baz-2.gif</icon>
+                                        <command ref="Execute">
+                                            <argument>C:/Program Files/a/baz-1.exe</argument>
+                                            <argument>def</argument>
+                                            <argument>ghi</argument>
+                                            <argument>&quot;str</argument>
+                                        </command>
+                                    </menu-item>
+                                </items>
+                            </menu-group>
+                            <menu-item>
+                                <name>Third menu item</name>
+                                <icon>C:/Program Files/b/bar-3.gif</icon>
+                                <command ref="Execute">
+                                    <argument>C:/Program Files/a/bar-3.exe</argument>
+                                </command>
+                            </menu-item>
+                        </items>
+                    </menu-group>
+                </items>
+            </menu-group>
+        </items>
+    </menu-bar>
+    <commands>
+        <command id="Execute" class="uk.co.ariley.armenu.command.ExecuteCommand"/>
+    </commands>
+</menu-config>
