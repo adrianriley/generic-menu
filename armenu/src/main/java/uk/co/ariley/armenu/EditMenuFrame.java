@@ -24,6 +24,7 @@ import javax.swing.tree.TreePath;
 import uk.co.ariley.armenu.schema.types.AbstractMenuGroupType;
 import uk.co.ariley.armenu.schema.types.AbstractMenuItemType;
 import uk.co.ariley.armenu.schema.types.MenuBarType;
+import uk.co.ariley.armenu.schema.types.MenuConfig;
 import uk.co.ariley.armenu.schema.types.MenuGroupItemsType;
 import uk.co.ariley.armenu.schema.types.MenuGroupType;
 
@@ -35,7 +36,7 @@ public class EditMenuFrame extends javax.swing.JFrame {
 
     private static final long serialVersionUID = 1L;
 
-    private AbstractMenuGroupType menu;
+    private MenuConfig menuConfig;
 
     private boolean unsavedChanges = false;
 
@@ -48,8 +49,8 @@ public class EditMenuFrame extends javax.swing.JFrame {
     }
 
 
-    public void setMenu(AbstractMenuGroupType menu) {
-        this.menu = menu;
+    public void setMenuConfig(MenuConfig menuConfig) {
+        this.menuConfig = menuConfig;
         initTree();
     }
 
@@ -77,7 +78,7 @@ public class EditMenuFrame extends javax.swing.JFrame {
         
         AbstractMenuGroupType newMenu;
         
-        if (this.menu instanceof MenuBarType) {
+        if (this.menuConfig.getMenuBar() != null) {
             newMenu = new MenuBarType();
         } else {
             newMenu = new MenuGroupType();
@@ -357,13 +358,17 @@ public class EditMenuFrame extends javax.swing.JFrame {
 
 
     private TreeNode createNodes() {
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Start");
-        createNodes(root, menu.getItems());
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode();
+        if (menuConfig.getMenuBar() != null) {
+            createNodes(root, menuConfig.getMenuBar());
+        } else {
+            createNodes(root, menuConfig.getMenu());
+        }
         return root;
     }
 
 
-    private void createNodes(DefaultMutableTreeNode root, MenuGroupType menuGroup) {
+    private void createNodes(DefaultMutableTreeNode root, AbstractMenuGroupType menuGroup) {
         DefaultMutableTreeNode groupNode = new DefaultMutableTreeNode(menuGroup);
         root.add(groupNode);
         final MenuGroupItemsType items = menuGroup.getItems();
@@ -395,7 +400,7 @@ public class EditMenuFrame extends javax.swing.JFrame {
 
     private void addMenuItem(boolean submenuItem) {
         if (menuTree.getSelectionCount() == 1) {
-            final MenuItemPropertiesDialog dialog = new MenuItemPropertiesDialog(this, true);
+            final MenuItemPropertiesDialog dialog = new MenuItemPropertiesDialog(this, menuConfig, true);
             dialog.addPropertyChangeListener(new PropertyChangeListener() {
 
 
@@ -446,7 +451,7 @@ public class EditMenuFrame extends javax.swing.JFrame {
 
     private void editMenuItem() {
         if (menuTree.getSelectionCount() == 1) {
-            final MenuItemPropertiesDialog dialog = new MenuItemPropertiesDialog(this, true);
+            final MenuItemPropertiesDialog dialog = new MenuItemPropertiesDialog(this, menuConfig, true);
             final DefaultMutableTreeNode selectedNode =
                     (DefaultMutableTreeNode) menuTree.getSelectionModel().getSelectionPath().getLastPathComponent();
             dialog.setValue((AbstractMenuItemType)(selectedNode.getUserObject()));
@@ -537,7 +542,7 @@ public class EditMenuFrame extends javax.swing.JFrame {
 
             if (item instanceof AbstractMenuItemType) {
                 setText(((AbstractMenuItemType) item).getName());
-            } else {
+            } else if (item != null) {
                 setText(item.toString());
             }
 
